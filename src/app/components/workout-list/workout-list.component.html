@@ -1,0 +1,25 @@
+<!-- src/app/components/workout-list/workout-list.component.html -->
+<div class="p-4 bg-white rounded shadow">
+  <table class="min-w-full bg-white border-separate border-spacing-0">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 border-b border-gray-300 text-left">Name</th>
+        <th class="px-4 py-2 border-b border-gray-300 text-left">Workouts</th>
+        <th class="px-4 py-2 border-b border-gray-300 text-left">Number of Workouts</th>
+        <th class="px-4 py-2 border-b border-gray-300 text-left">Total Workout Minutes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td class="px-4 py-2 border-b border-gray-300">{{ user.name }}</td>
+        <td class="px-4 py-2 border-b border-gray-300">
+          <ul class="list-disc pl-5">
+            <li *ngFor="let workout of user.workouts">{{ workout.type }}</li>
+          </ul>
+        </td>
+        <td class="px-4 py-2 border-b border-gray-300 text-left">{{ user.numberOfWorkouts }}</td>
+        <td class="px-4 py-2 border-b border-gray-300 text-left">{{ user.totalWorkoutMinutes }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

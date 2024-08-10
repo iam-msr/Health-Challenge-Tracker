@@ -1,0 +1,40 @@
+<!-- src/app/components/user-form/user-form.component.html -->
+<div class="p-4 bg-white rounded shadow">
+  <form (submit)="addUser()" #userForm="ngForm">
+    <div class="mb-4">
+      <label class="block text-sm font-medium">User Name</label>
+      <input type="text" [(ngModel)]="name" name="name" class="mt-1 block w-full px-3 py-2 border rounded" required>
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium">Workout Type</label>
+      <select [(ngModel)]="workoutType" name="workoutType" class="mt-1 block w-full px-3 py-2 border rounded" required>
+        <option value="" disabled>Select workout type</option>
+        <option value="Cycling">Cycling</option>
+        <option value="Running">Running</option>
+        <option value="Swimming">Swimming</option>
+        <option value="Yoga">Yoga</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium">Workout Minutes</label>
+      <input 
+        type="number" 
+        [(ngModel)]="workoutMinutes" 
+        name="workoutMinutes" 
+        class="mt-1 block w-full px-3 py-2 border rounded" 
+        min="1" 
+        required 
+        step="1"
+      >
+    </div>
+    <button 
+      type="submit" 
+      class="px-4 py-2 bg-blue-600 text-white rounded"
+      [disabled]="!userForm.form.valid"
+    >
+      Add Workout
+    </button>
+  </form>
+</div>
+
+  
