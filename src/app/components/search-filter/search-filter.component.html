@@ -1,14 +1,14 @@
 <!-- src/app/components/search-filter/search-filter.component.html -->
 <div class="p-4 bg-white rounded shadow">
-    <div class="mb-4">
-      <label class="block text-sm font-medium">Search by Name</label>
-      <input type="text" [(ngModel)]="searchName" class="mt-1 block w-full px-3 py-2 border rounded">
-      <button (click)="search()" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Search</button>
-    </div>
-    <div class="mb-4">
-      <label class="block text-sm font-medium">Filter by Workout Type</label>
-      <input type="text" [(ngModel)]="filterType" class="mt-1 block w-full px-3 py-2 border rounded">
-      <button (click)="filter()" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Filter</button>
-    </div>
+  <div class="mb-4">
+    <label class="block text-sm font-medium">Search by Name</label>
+    <input type="text" [(ngModel)]="searchName" class="mt-1 block w-full px-3 py-2 border rounded">
   </div>
-  
+  <div class="mb-4">
+    <label class="block text-sm font-medium">Filter by Workout Type</label>
+    <select [(ngModel)]="filterType" class="mt-1 block w-full px-3 py-2 border rounded">
+      <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+  <button (click)="searchAndFilter()" class="px-4 py-2 bg-blue-600 text-white rounded">Apply Filter</button>
+</div>

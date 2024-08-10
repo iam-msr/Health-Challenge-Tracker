@@ -1,5 +1,5 @@
 // src/app/components/search-filter/search-filter.component.ts
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -9,18 +9,14 @@ import { DataService } from '../../services/data.service';
 })
 export class SearchFilterComponent {
   searchName: string = '';
-  filterType: string = '';
-  filteredUsers: any[] = [];
+  filterType: string = 'all';
+  workoutTypes: string[] = ['all', 'Yoga', 'Running', 'Cycling', 'Swimming'];
+
+  @Output() searchFilterEvent = new EventEmitter<{ name: string, type: string }>();
 
   constructor(private dataService: DataService) {}
 
-  search() {
-    this.filteredUsers = this.dataService.searchUsersByName(this.searchName);
-    console.log('Filtered users from search:', this.filteredUsers);
-  }
-
-  filter() {
-    this.filteredUsers = this.dataService.filterUsersByWorkoutType(this.filterType);
-    console.log('Filtered users from filter:', this.filteredUsers);
+  searchAndFilter() {
+    this.searchFilterEvent.emit({ name: this.searchName, type: this.filterType });
   }
 }

@@ -18,6 +18,15 @@ export class DataService {
     return data ? JSON.parse(data) : [];
   }
 
+  public initializeUsers(users: User[]) {
+    console.log('Initializing users:', users);
+    this.saveUsers(users);
+  }
+
+  public hasInitializedUsers(): boolean { // New method to check if users are initialized
+    return !!localStorage.getItem(this.localStorageKey);
+  }
+
   private saveUsers(users: User[]) {
     localStorage.setItem(this.localStorageKey, JSON.stringify(users));
     this.usersSubject.next(users); // Notify subscribers of the new user list
@@ -41,19 +50,29 @@ export class DataService {
     }
 
     this.saveUsers(users);
-    console.log('User added/updated:', user);
-    console.log('All users:', users);
   }
 
-  searchUsersByName(name: string) {
+  searchAndFilterUsers(name: string, type: string): User[] {
     const users = this.getUsers();
-    return users.filter((user) => user.name.toLowerCase().includes(name.toLowerCase()));
-  }
+    let filteredUsers = users;
 
-  filterUsersByWorkoutType(type: string) {
-    const users = this.getUsers();
-    return users.filter((user) => 
-      user.workouts.some((workout) => workout.type.toLowerCase() === type.toLowerCase())
-    );
+    if (name) {
+      filteredUsers = filteredUsers.filter(user => 
+        user.name.toLowerCase().includes(name.toLowerCase())
+      );
+    }
+
+    if (type && type !== 'all') {
+      filteredUsers = filteredUsers.map(user => ({
+        ...user,
+        workouts: user.workouts.filter(workout => workout.type.toLowerCase() === type.toLowerCase()),
+        numberOfWorkouts: user.workouts.filter(workout => workout.type.toLowerCase() === type.toLowerCase()).length,
+        totalWorkoutMinutes: user.workouts
+          .filter(workout => workout.type.toLowerCase() === type.toLowerCase())
+          .reduce((total, workout) => total + workout.minutes, 0)
+      }));
+    }
+
+    return filteredUsers;
   }
 }
