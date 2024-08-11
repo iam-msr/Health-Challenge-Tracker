@@ -56,23 +56,27 @@ export class DataService {
     const users = this.getUsers();
     let filteredUsers = users;
 
+    // First, filter users by name
     if (name) {
-      filteredUsers = filteredUsers.filter(user => 
-        user.name.toLowerCase().includes(name.toLowerCase())
-      );
+        filteredUsers = filteredUsers.filter(user =>
+            user.name.toLowerCase().includes(name.toLowerCase())
+        );
     }
 
+    // Next, filter by workout type if specified
     if (type && type !== 'all') {
-      filteredUsers = filteredUsers.map(user => ({
-        ...user,
-        workouts: user.workouts.filter(workout => workout.type.toLowerCase() === type.toLowerCase()),
-        numberOfWorkouts: user.workouts.filter(workout => workout.type.toLowerCase() === type.toLowerCase()).length,
-        totalWorkoutMinutes: user.workouts
-          .filter(workout => workout.type.toLowerCase() === type.toLowerCase())
-          .reduce((total, workout) => total + workout.minutes, 0)
-      }));
+        filteredUsers = filteredUsers.filter(user => 
+            user.workouts.some(workout => workout.type.toLowerCase() === type.toLowerCase())
+        ).map(user => ({
+            ...user,
+            workouts: user.workouts.filter(workout => workout.type.toLowerCase() === type.toLowerCase()),
+            numberOfWorkouts: user.workouts.filter(workout => workout.type.toLowerCase() === type.toLowerCase()).length,
+            totalWorkoutMinutes: user.workouts
+                .filter(workout => workout.type.toLowerCase() === type.toLowerCase())
+                .reduce((total, workout) => total + workout.minutes, 0)
+        }));
     }
-
+    console.log('Filtered users:', filteredUsers);
     return filteredUsers;
-  }
+}
 }
