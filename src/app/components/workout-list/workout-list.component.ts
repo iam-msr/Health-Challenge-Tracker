@@ -6,7 +6,7 @@ import { User } from '../../models/user.model';
 @Component({
   selector: 'app-workout-list',
   templateUrl: './workout-list.component.html',
-  styleUrls: ['./workout-list.component.scss']
+  styleUrls: ['./workout-list.component.css']
 })
 export class WorkoutListComponent implements OnInit, OnDestroy, OnChanges {
   @Input() searchFilterCriteria: { name: string, type: string } = { name: '', type: 'all' };
@@ -20,14 +20,17 @@ export class WorkoutListComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.usersSubscription = this.dataService.users$.subscribe(() => {
+      console.log('Updating user list... (Subscription)');
       this.updateUserList(); // Update user list based on latest data
     });
+    console.log('Updating user list... (Initial)');
     this.updateUserList(); // Initialize the user list
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchFilterCriteria']) {
       this.currentPage = 1; // Reset to first page when filter criteria change
+      console.log('Updating user list... (OnChanges)');
       this.updateUserList(); // Update list when search criteria change
     }
   }

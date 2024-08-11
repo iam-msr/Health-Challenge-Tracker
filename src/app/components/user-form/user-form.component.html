@@ -2,11 +2,11 @@
 <div class="p-4 bg-white rounded shadow">
   <form (submit)="addUser()" #userForm="ngForm">
     <div class="mb-4">
-      <label class="block text-sm font-medium">User Name</label>
+      <label class="block text-sm font-medium">User Name*</label>
       <input type="text" [(ngModel)]="name" name="name" class="mt-1 block w-full px-3 py-2 border rounded" required>
     </div>
     <div class="mb-4">
-      <label class="block text-sm font-medium">Workout Type</label>
+      <label class="block text-sm font-medium">Workout Type*</label>
       <select [(ngModel)]="workoutType" name="workoutType" class="mt-1 block w-full px-3 py-2 border rounded" required>
         <option value="" disabled>Select workout type</option>
         <option value="Cycling">Cycling</option>
@@ -16,7 +16,7 @@
       </select>
     </div>
     <div class="mb-4">
-      <label class="block text-sm font-medium">Workout Minutes</label>
+      <label class="block text-sm font-medium">Workout Minutes*</label>
       <input 
         type="number" 
         [(ngModel)]="workoutMinutes" 
@@ -29,7 +29,7 @@
     </div>
     <button 
       type="submit" 
-      class="px-4 py-2 bg-blue-600 text-white rounded"
+      class="px-4 py-2 bg-black text-white rounded-md"
       [disabled]="!userForm.form.valid"
     >
       Add Workout

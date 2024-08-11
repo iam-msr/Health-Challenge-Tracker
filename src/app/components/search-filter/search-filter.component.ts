@@ -5,7 +5,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
-  styleUrls: ['./search-filter.component.scss']
+  styleUrls: ['./search-filter.component.css']
 })
 export class SearchFilterComponent {
   searchName: string = '';
