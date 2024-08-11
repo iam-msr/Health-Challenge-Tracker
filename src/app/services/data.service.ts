@@ -76,7 +76,6 @@ export class DataService {
                 .reduce((total, workout) => total + workout.minutes, 0)
         }));
     }
-    console.log('Filtered users:', filteredUsers);
     return filteredUsers;
 }
 }
